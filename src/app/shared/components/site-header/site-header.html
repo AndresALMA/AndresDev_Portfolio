@@ -1,17 +1,41 @@
 <header class="border-b border-slate-800 bg-ink/80 backdrop-blur">
-  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
+  <div
+    class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between"
+  >
     <a routerLink="/" aria-label="AndresDev, home" class="text-lg font-semibold tracking-tight text-white">
       AndresDev<span class="text-accent">.</span>
     </a>
-    <nav aria-label="Main navigation" class="flex gap-6 text-sm font-medium text-slate-300">
-      <a
-        routerLink="/"
-        routerLinkActive="text-white underline underline-offset-4"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Home
-      </a>
-      <a routerLink="/projects" routerLinkActive="text-white underline underline-offset-4">Projects</a>
-    </nav>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+      <nav aria-label="Main navigation" class="flex gap-6 text-sm font-medium text-slate-300">
+        <a
+          routerLink="/"
+          routerLinkActive="text-white underline underline-offset-4"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Home
+        </a>
+        <a routerLink="/projects" routerLinkActive="text-white underline underline-offset-4">Projects</a>
+      </nav>
+      <ul aria-label="Links pending real URLs" class="flex flex-wrap gap-2">
+        <li
+          data-placeholder
+          class="rounded-md border border-amber-500/70 bg-amber-500/10 px-2 py-1 text-xs text-amber-200"
+        >
+          [PLACEHOLDER] GitHub
+        </li>
+        <li
+          data-placeholder
+          class="rounded-md border border-amber-500/70 bg-amber-500/10 px-2 py-1 text-xs text-amber-200"
+        >
+          [PLACEHOLDER] LinkedIn
+        </li>
+        <li
+          data-placeholder
+          class="rounded-md border border-amber-500/70 bg-amber-500/10 px-2 py-1 text-xs text-amber-200"
+        >
+          [PLACEHOLDER] CV
+        </li>
+      </ul>
+    </div>
   </div>
 </header>

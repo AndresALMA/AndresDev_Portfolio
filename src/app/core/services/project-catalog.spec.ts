@@ -58,6 +58,21 @@ describe('ProjectCatalog', () => {
     expect(service.projects()).toEqual([sample]);
   });
 
+  it('reports an explicit validation error for an invalid catalog payload', () => {
+    const service = TestBed.inject(ProjectCatalog);
+    const controller = TestBed.inject(HttpTestingController);
+
+    service.load().subscribe();
+
+    const request = controller.expectOne('projects.json');
+    request.flush({ unexpected: true });
+
+    expect(service.status()).toBe('failed');
+    expect(service.error()?.code).toBe('catalog-invalid');
+    expect(service.error()?.message).toContain('array');
+    expect(service.projects()).toEqual([]);
+  });
+
   it('tracks a failed request as a typed error', () => {
     const service = TestBed.inject(ProjectCatalog);
     const controller = TestBed.inject(HttpTestingController);

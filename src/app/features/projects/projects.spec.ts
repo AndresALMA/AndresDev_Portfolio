@@ -72,8 +72,19 @@ describe('Projects', () => {
     const element = await render([], 'failed', error);
     const alert = element.querySelector('[role="alert"]');
 
+    expect(alert?.textContent).toContain('Error loading projects.');
     expect(alert?.textContent).toContain(error.message);
     expect(element.querySelectorAll('app-project-card').length).toBe(0);
+  });
+
+  it('shows an explicit validation message when the catalog payload is invalid', async () => {
+    const error: ProjectCatalogError = {
+      code: 'catalog-invalid',
+      message: 'Project at index 0 has an invalid title.',
+    };
+    const element = await render([], 'failed', error);
+
+    expect(element.querySelector('[role="alert"]')?.textContent).toContain(error.message);
   });
 
   it('uses one main heading', async () => {

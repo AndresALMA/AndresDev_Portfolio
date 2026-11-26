@@ -1,8 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 
 import { Project, ProjectCatalogState } from '../models/project';
+
+class CatalogValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'CatalogValidationError';
+  }
+}
+
+function validateCatalog(payload: unknown): readonly Project[] {
+  if (!Array.isArray(payload)) {
+    throw new CatalogValidationError('Project catalog payload must be an array.');
+  }
+
+  payload.forEach((item: unknown, index: number) => {
+    if (!item || typeof item !== 'object') {
+      throw new CatalogValidationError(`Project at index ${index} is not an object.`);
+    }
+
+    const candidate = item as Record<string, unknown>;
+    for (const field of ['id', 'title', 'description', 'evidence'] as const) {
+      const value = candidate[field];
+      if (typeof value !== 'string' || value.trim() === '') {
+        throw new CatalogValidationError(`Project at index ${index} has an invalid ${field}.`);
+      }
+    }
+    for (const field of ['tech', 'pending'] as const) {
+      if (!Array.isArray(candidate[field])) {
+        throw new CatalogValidationError(`Project at index ${index} has an invalid ${field}.`);
+      }
+    }
+  });
+
+  return payload as readonly Project[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +58,16 @@ export class ProjectCatalog {
   load(): Observable<readonly Project[]> {
     this.catalogState.set({ status: 'loading', error: null });
 
-    return this.http.get<readonly Project[]>('projects.json').pipe(
+    return this.http.get<unknown>('projects.json').pipe(
+      map((payload) => validateCatalog(payload)),
       tap((projects) => this.setProjects(projects)),
-      catchError(() => {
+      catchError((error: unknown) => {
+        const invalid = error instanceof CatalogValidationError;
         this.catalogState.set({
           status: 'failed',
-          error: { code: 'catalog-load-failed', message: 'Projects could not be loaded.' },
+          error: invalid
+            ? { code: 'catalog-invalid', message: (error as Error).message }
+            : { code: 'catalog-load-failed', message: 'Projects could not be loaded.' },
         });
         return of<readonly Project[]>([]);
       }),

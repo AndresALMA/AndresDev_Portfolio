@@ -16,9 +16,10 @@
       </p>
     }
     @case ('failed') {
-      <p role="alert" class="rounded-xl border border-red-800 p-10 text-center text-red-300">
-        {{ error()?.message }}
-      </p>
+      <div role="alert" class="rounded-xl border border-red-800 bg-red-950/40 p-10 text-center text-red-200">
+        <p class="font-semibold">Error loading projects.</p>
+        <p class="mt-2 text-sm">{{ error()?.message }}</p>
+      </div>
     }
     @default {
       @if (projects().length === 0) {
