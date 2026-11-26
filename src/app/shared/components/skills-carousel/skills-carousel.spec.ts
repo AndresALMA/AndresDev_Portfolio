@@ -35,6 +35,18 @@ describe('SkillsCarousel', () => {
     expect(element.textContent).toContain('WebSocket');
   });
 
+  it('separates the two tiers under labelled category tracks', () => {
+    const element = fixture.nativeElement as HTMLElement;
+    const text = element.textContent ?? '';
+
+    expect(text).toContain('Stack principal');
+    expect(text).toContain('Conocimientos en / Explorando');
+    expect(text).toContain('Lenguajes');
+    expect(text).toContain('Bases de Datos');
+    expect(text).toContain('DevOps / Herramientas');
+    expect(element.querySelectorAll('h3').length).toBeGreaterThan(1);
+  });
+
   it('toggles the pause control with an explicit pressed state', async () => {
     const element = fixture.nativeElement as HTMLElement;
     const button = element.querySelector('button');

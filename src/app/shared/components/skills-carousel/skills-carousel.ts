@@ -1,7 +1,32 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 
 import { skills } from '../../../core/data/skills';
-import { Skill } from '../../../core/models/skill';
+import { Skill, SkillArea, SkillTier } from '../../../core/models/skill';
+
+interface AreaGroup {
+  readonly area: SkillArea;
+  readonly label: string;
+  readonly slides: readonly Skill[];
+}
+
+interface TierGroup {
+  readonly tier: SkillTier;
+  readonly title: string;
+  readonly areas: readonly AreaGroup[];
+}
+
+const areaLabels: Readonly<Record<SkillArea, string>> = {
+  languages: 'Lenguajes',
+  frontend: 'Frontend',
+  backend: 'Backend',
+  data: 'Bases de Datos',
+  tools: 'DevOps / Herramientas',
+};
+
+const tierLabels: Readonly<Record<SkillTier, string>> = {
+  principal: 'Stack principal',
+  exploring: 'Conocimientos en / Explorando',
+};
 
 @Component({
   selector: 'app-skills-carousel',
@@ -10,8 +35,21 @@ import { Skill } from '../../../core/models/skill';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsCarousel {
-  readonly slides: readonly Skill[] = [...skills, ...skills];
+  readonly groups: readonly TierGroup[] = (['principal', 'exploring'] as const)
+    .map((tier) => ({
+      tier,
+      title: tierLabels[tier],
+      areas: (Object.keys(areaLabels) as readonly SkillArea[])
+        .map((area) => {
+          const matching = skills.filter((skill) => skill.tier === tier && skill.area === area);
+          return { area, label: areaLabels[area], slides: [...matching, ...matching] };
+        })
+        .filter((group) => group.slides.length > 0),
+    }))
+    .filter((group) => group.areas.length > 0);
+
   readonly paused = signal(false);
+
   readonly trackClass = computed(
     () =>
       `flex w-max animate-logo-scroll hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none${
@@ -23,6 +61,14 @@ export class SkillsCarousel {
     mockito: 'Mo',
     jacoco: 'JC',
     websocket: 'WS',
+    gsap: 'Gs',
+    shadcn: 'Sh',
+    'framer-motion': 'Fm',
+    three: '3D',
+    springdoc: 'Oa',
+    playwright: 'Pl',
+    docker: 'Dk',
+    testcontainers: 'Tc',
   };
 
   toggle(): void {
