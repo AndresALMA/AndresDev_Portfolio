@@ -4,8 +4,10 @@ export interface Project {
   readonly id: string;
   readonly title: string;
   readonly description: string;
+  readonly evidence: string;
+  readonly tech: readonly string[];
+  readonly pending: readonly string[];
   readonly url?: ProjectUrl;
-  readonly tags: readonly string[];
   readonly imageUrl?: ProjectUrl;
   readonly videoUrl?: ProjectUrl;
 }
@@ -13,7 +15,7 @@ export interface Project {
 export type ProjectCatalogStatus = 'loading' | 'ready' | 'failed';
 
 export interface ProjectCatalogError {
-  readonly code: 'catalog-load-failed';
+  readonly code: 'catalog-load-failed' | 'catalog-invalid';
   readonly message: string;
 }
 

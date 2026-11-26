@@ -10,8 +10,10 @@ const sample: Project = {
   id: 'demo',
   title: 'Demo project',
   description: 'A typed demo project',
+  evidence: 'Modeled the schema in PostgreSQL.',
+  tech: ['angular'],
+  pending: [],
   url: 'https://example.com/demo',
-  tags: ['Angular'],
 };
 
 async function render(

@@ -40,3 +40,21 @@ export const skills: readonly Skill[] = [
 ];
 
 export const skillById: ReadonlyMap<string, Skill> = new Map(skills.map((skill) => [skill.id, skill]));
+
+const abbreviations: Readonly<Record<string, string>> = {
+  mockito: 'Mo',
+  jacoco: 'JC',
+  websocket: 'WS',
+  gsap: 'Gs',
+  shadcn: 'Sh',
+  'framer-motion': 'Fm',
+  three: '3D',
+  springdoc: 'Oa',
+  playwright: 'Pl',
+  docker: 'Dk',
+  testcontainers: 'Tc',
+};
+
+export function skillAbbreviation(skill: Skill): string {
+  return abbreviations[skill.id] ?? skill.name.slice(0, 2);
+}

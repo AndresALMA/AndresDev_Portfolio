@@ -9,8 +9,10 @@ const sample: Project = {
   id: 'demo',
   title: 'Demo',
   description: 'A typed demo project',
+  evidence: 'Modeled the schema in PostgreSQL.',
+  tech: ['angular'],
+  pending: [],
   url: 'https://example.com/demo',
-  tags: ['Angular'],
 };
 
 describe('ProjectCatalog', () => {

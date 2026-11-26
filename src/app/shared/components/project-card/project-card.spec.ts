@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { skillById } from '../../../core/data/skills';
 import { Project } from '../../../core/models/project';
 import { ProjectCard } from './project-card';
 
@@ -7,8 +8,10 @@ const sample: Project = {
   id: 'demo',
   title: 'Demo project',
   description: 'A typed demo project',
+  evidence: 'Modeled the schema in PostgreSQL.',
+  tech: ['angular', 'typescript', 'postgres'],
+  pending: ['[PLACEHOLDER] project URL'],
   url: 'https://example.com/demo',
-  tags: ['Angular', 'TypeScript'],
   imageUrl: 'https://example.com/demo.png',
 };
 
@@ -25,13 +28,14 @@ describe('ProjectCard', () => {
     await fixture.whenStable();
   });
 
-  it('renders the project title, description and every tag', () => {
+  it('renders the title, description, evidence and one badge per technology id', () => {
     const element = fixture.nativeElement as HTMLElement;
 
     expect(element.querySelector('h3')?.textContent).toContain(sample.title);
     expect(element.textContent).toContain(sample.description);
-    expect(Array.from(element.querySelectorAll('li')).map((item) => item.textContent?.trim())).toEqual(
-      sample.tags,
+    expect(element.textContent).toContain(sample.evidence);
+    expect(Array.from(element.querySelectorAll('[data-tech] li')).map((item) => item.textContent?.trim())).toEqual(
+      sample.tech.map((id) => skillById.get(id)?.name),
     );
   });
 
@@ -56,12 +60,23 @@ describe('ProjectCard', () => {
     expect(link?.textContent).toContain(sample.title);
   });
 
+  it('highlights every pending field so missing information is visible', () => {
+    const element = fixture.nativeElement as HTMLElement;
+    const pending = element.querySelector('[data-pending]');
+
+    expect(pending?.textContent).toContain('[PLACEHOLDER] project URL');
+    expect(pending?.className).toContain('amber');
+    expect(pending?.querySelectorAll('li').length).toBe(1);
+  });
+
   it('reserves media space and omits the link when no media or URL is available', async () => {
     const pending: Project = {
       id: 'pending',
       title: 'Pending project',
       description: 'Project slot',
-      tags: ['Angular'],
+      evidence: 'Evidence for the pending project.',
+      tech: [],
+      pending: [],
     };
     const pendingFixture = TestBed.createComponent(ProjectCard);
     pendingFixture.componentRef.setInput('project', pending);
@@ -70,6 +85,7 @@ describe('ProjectCard', () => {
 
     expect(element.querySelector('.media-placeholder')).not.toBeNull();
     expect(element.querySelector('a')).toBeNull();
+    expect(element.querySelector('[data-pending]')).toBeNull();
   });
 
   it('renders a video when the project provides one', async () => {

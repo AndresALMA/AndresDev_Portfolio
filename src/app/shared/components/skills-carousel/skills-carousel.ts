@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 
-import { skills } from '../../../core/data/skills';
+import { skillAbbreviation, skills } from '../../../core/data/skills';
 import { Skill, SkillArea, SkillTier } from '../../../core/models/skill';
 
 interface AreaGroup {
@@ -57,25 +57,9 @@ export class SkillsCarousel {
       }`,
   );
 
-  private readonly abbreviations: Readonly<Record<string, string>> = {
-    mockito: 'Mo',
-    jacoco: 'JC',
-    websocket: 'WS',
-    gsap: 'Gs',
-    shadcn: 'Sh',
-    'framer-motion': 'Fm',
-    three: '3D',
-    springdoc: 'Oa',
-    playwright: 'Pl',
-    docker: 'Dk',
-    testcontainers: 'Tc',
-  };
+  readonly skillAbbreviation = skillAbbreviation;
 
   toggle(): void {
     this.paused.update((value) => !value);
-  }
-
-  abbreviation(skill: Skill): string {
-    return this.abbreviations[skill.id] ?? skill.name.slice(0, 2);
   }
 }

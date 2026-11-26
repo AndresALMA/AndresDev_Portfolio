@@ -25,11 +25,43 @@
   <div class="flex flex-1 flex-col gap-3 p-6">
     <h3 class="text-lg font-semibold text-white">{{ item.title }}</h3>
     <p class="text-sm leading-relaxed text-slate-400">{{ item.description }}</p>
-    <ul class="flex flex-wrap gap-2" aria-label="Technologies">
-      @for (tag of item.tags; track tag) {
-        <li class="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-300">{{ tag }}</li>
+    <p class="text-sm leading-relaxed text-slate-200">{{ item.evidence }}</p>
+    <ul data-tech class="flex flex-wrap gap-2" aria-label="Technologies">
+      @for (id of item.tech; track id) {
+        @let skill = skillById.get(id);
+        <li
+          class="inline-flex items-center gap-1.5 rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-300"
+        >
+          @if (skill) {
+            @if (skill.logo) {
+              <img
+                [src]="'/logos/' + skill.logo"
+                alt=""
+                class="h-4 w-4 object-contain"
+                width="16"
+                height="16"
+              />
+            } @else {
+              <span aria-hidden="true" class="font-semibold text-slate-400">{{ skillAbbreviation(skill) }}</span>
+            }
+            <span>{{ skill.name }}</span>
+          } @else {
+            <span class="font-semibold text-amber-300">[PLACEHOLDER] skill {{ id }}</span>
+          }
+        </li>
       }
     </ul>
+    @if (item.pending.length) {
+      <ul
+        data-pending
+        class="rounded-lg border border-amber-500/70 bg-amber-500/10 p-3 text-xs text-amber-200"
+        aria-label="Pending information"
+      >
+        @for (field of item.pending; track field) {
+          <li>{{ field }}</li>
+        }
+      </ul>
+    }
     @if (item.url) {
       <a
         [href]="item.url"

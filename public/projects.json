@@ -2,13 +2,32 @@
   {
     "id": "tcg-pokemon",
     "title": "TCG Pokémon",
-    "description": "Pokémon trading card game project.",
-    "tags": ["TCG", "Pokémon"]
+    "description": "Digital trading card game with a Spring Boot engine and an Angular client.",
+    "evidence": "Modeled game state as snapshots in PostgreSQL with Flyway migrations and pushed moves to clients over STOMP/WebSocket.",
+    "tech": [
+      "angular",
+      "typescript",
+      "tailwind",
+      "java",
+      "spring",
+      "jpa",
+      "postgres",
+      "flyway",
+      "websocket",
+      "playwright"
+    ],
+    "pending": [
+      "[PLACEHOLDER] repository URL",
+      "[PLACEHOLDER] screenshot .webp",
+      "[PLACEHOLDER] demo credentials"
+    ]
   },
   {
     "id": "skingraph",
     "title": "SkinGraph",
-    "description": "CS2 skin market intelligence backed by Neo4j.",
-    "tags": ["Neo4j", "Graph"]
+    "description": "CS2 skin market intelligence backed by a Neo4j graph.",
+    "evidence": "Modeled skins, traders and risk cycles in Neo4j, exposed Next.js Route Handlers and documented the graph model and Cypher queries.",
+    "tech": ["next", "react", "typescript", "tailwind", "neo4j", "playwright"],
+    "pending": ["[PLACEHOLDER] repository URL", "[PLACEHOLDER] screenshot .webp"]
   }
 ]
