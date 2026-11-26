@@ -32,7 +32,7 @@ export const skills: readonly Skill[] = [
   { id: 'vitest', name: 'Vitest', area: 'tools', tier: 'principal', logo: 'vitest.svg', projects: ['portfolio'] },
   { id: 'maven', name: 'Maven', area: 'tools', tier: 'principal', logo: 'maven.svg', projects: ['tcg-pokemon'] },
   { id: 'junit', name: 'JUnit 5', area: 'tools', tier: 'principal', logo: 'junit.svg', projects: ['tcg-pokemon'] },
-  { id: 'mockito', name: 'Mockito', area: 'tools', tier: 'principal', projects: [] },
+  { id: 'mockito', name: 'Mockito', area: 'tools', tier: 'exploring', projects: [] },
   { id: 'jacoco', name: 'JaCoCo', area: 'tools', tier: 'principal', projects: ['tcg-pokemon'] },
   { id: 'playwright', name: 'Playwright', area: 'tools', tier: 'principal', projects: ['tcg-pokemon', 'skingraph'] },
   { id: 'docker', name: 'Docker', area: 'tools', tier: 'exploring', projects: ['tcg-pokemon'] },
