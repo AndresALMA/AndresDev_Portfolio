@@ -1,0 +1,41 @@
+<section class="py-12" aria-labelledby="projects-heading">
+  <header class="mb-10 space-y-2">
+    <h1 id="projects-heading" class="text-3xl font-semibold text-white">Projects</h1>
+    <p class="text-slate-400">Repositories and demos will appear here as they are published.</p>
+  </header>
+
+  @switch (status()) {
+    @case ('loading') {
+      <p
+        role="status"
+        aria-live="polite"
+        aria-busy="true"
+        class="rounded-xl border border-slate-700 p-10 text-center text-slate-400"
+      >
+        Loading projects...
+      </p>
+    }
+    @case ('failed') {
+      <p role="alert" class="rounded-xl border border-red-800 p-10 text-center text-red-300">
+        {{ error()?.message }}
+      </p>
+    }
+    @default {
+      @if (projects().length === 0) {
+        <p
+          role="status"
+          aria-live="polite"
+          class="rounded-xl border border-dashed border-slate-700 p-10 text-center text-slate-400"
+        >
+          No projects published yet. Repository links will be added in the next stage.
+        </p>
+      } @else {
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (project of projects(); track project.id) {
+            <app-project-card [project]="project" />
+          }
+        </div>
+      }
+    }
+  }
+</section>

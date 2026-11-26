@@ -1,0 +1,42 @@
+<section class="border-y border-slate-800 bg-slate-900/40 py-10" aria-labelledby="skills-heading">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between gap-4">
+      <h2 id="skills-heading" class="text-xl font-semibold text-white">Tools &amp; technologies</h2>
+      <button
+        type="button"
+        class="rounded-md border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-accent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+        [attr.aria-pressed]="paused()"
+        [attr.aria-label]="paused() ? 'Resume logo carousel' : 'Pause logo carousel'"
+        (click)="toggle()"
+      >
+        {{ paused() ? 'Resume' : 'Pause' }}
+      </button>
+    </div>
+    <div class="mt-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <ul [class]="trackClass()">
+        @for (skill of slides; track $index) {
+          <li class="flex w-40 shrink-0 flex-col items-center gap-3 px-4">
+            @if (skill.logo) {
+              <img
+                [src]="'/logos/' + skill.logo"
+                [alt]="skill.name + ' logo'"
+                class="h-10 w-10 object-contain"
+                width="40"
+                height="40"
+              />
+            } @else {
+              <span
+                class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-xs font-semibold text-slate-300"
+                role="img"
+                [attr.aria-label]="skill.name"
+              >
+                {{ abbreviation(skill) }}
+              </span>
+            }
+            <span class="text-center text-xs text-slate-400">{{ skill.name }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

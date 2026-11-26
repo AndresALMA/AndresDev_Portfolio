@@ -1,0 +1,14 @@
+[
+  {
+    "id": "tcg-pokemon",
+    "title": "TCG Pokémon",
+    "description": "Pokémon trading card game project.",
+    "tags": ["TCG", "Pokémon"]
+  },
+  {
+    "id": "skingraph",
+    "title": "SkinGraph",
+    "description": "CS2 skin market intelligence backed by Neo4j.",
+    "tags": ["Neo4j", "Graph"]
+  }
+]

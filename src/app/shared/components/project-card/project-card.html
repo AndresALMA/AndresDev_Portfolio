@@ -1,0 +1,45 @@
+@let item = project();
+<article
+  class="group flex h-full flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-accent"
+>
+  @if (item.imageUrl) {
+    <img
+      [src]="item.imageUrl"
+      [alt]="'Screenshot of ' + item.title"
+      class="h-44 w-full object-cover"
+      width="640"
+      height="360"
+      loading="lazy"
+    />
+  } @else if (item.videoUrl) {
+    <video
+      [src]="item.videoUrl"
+      [attr.aria-label]="'Demo of ' + item.title"
+      class="h-44 w-full bg-black object-cover"
+      controls
+      preload="metadata"
+    ></video>
+  } @else {
+    <div class="media-placeholder h-44 w-full bg-slate-800/60" aria-hidden="true"></div>
+  }
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <h3 class="text-lg font-semibold text-white">{{ item.title }}</h3>
+    <p class="text-sm leading-relaxed text-slate-400">{{ item.description }}</p>
+    <ul class="flex flex-wrap gap-2" aria-label="Technologies">
+      @for (tag of item.tags; track tag) {
+        <li class="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-300">{{ tag }}</li>
+      }
+    </ul>
+    @if (item.url) {
+      <a
+        [href]="item.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="'Open ' + item.title + ' in a new tab'"
+        class="mt-auto inline-flex w-fit items-center gap-2 pt-2 text-sm font-semibold text-accent hover:underline"
+      >
+        View {{ item.title }} <span aria-hidden="true">↗</span>
+      </a>
+    }
+  </div>
+</article>

@@ -1,0 +1,34 @@
+<section class="flex flex-col gap-12 py-16 sm:py-24">
+  <div class="max-w-3xl space-y-5">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Frontend &amp; backend practice</p>
+    <h1 class="text-4xl font-semibold leading-tight text-white sm:text-6xl">
+      Andres — building careful web experiences.
+    </h1>
+    <p class="text-lg leading-relaxed text-slate-400">
+      Projects built with Angular, TypeScript and Spring Boot while studying programming at UTN.
+    </p>
+    <a
+      routerLink="/projects"
+      class="inline-flex w-fit rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white hover:bg-blue-500"
+    >
+      Browse the project portfolio
+    </a>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-3">
+    <article class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+      <h2 class="text-base font-semibold text-white">Angular</h2>
+      <p class="mt-2 text-sm text-slate-400">Standalone components, signals and typed templates.</p>
+    </article>
+    <article class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+      <h2 class="text-base font-semibold text-white">TypeScript</h2>
+      <p class="mt-2 text-sm text-slate-400">Strict types and explicit contracts across features.</p>
+    </article>
+    <article class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+      <h2 class="text-base font-semibold text-white">Testing</h2>
+      <p class="mt-2 text-sm text-slate-400">Behavior-first tests that pin the visible contract.</p>
+    </article>
+  </div>
+
+  <app-skills-carousel />
+</section>
