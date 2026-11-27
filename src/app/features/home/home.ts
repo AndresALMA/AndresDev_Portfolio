@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { methodologies } from '../../core/data/methodology';
+import { profilePhotoUrl } from '../../core/data/profile';
 import { SkillsCarousel } from '../../shared/components/skills-carousel/skills-carousel';
 
 @Component({
@@ -9,4 +11,7 @@ import { SkillsCarousel } from '../../shared/components/skills-carousel/skills-c
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {}
+export class Home {
+  readonly methodologies = methodologies;
+  readonly profilePhotoUrl = profilePhotoUrl;
+}
