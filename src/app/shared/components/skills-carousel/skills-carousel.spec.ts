@@ -35,6 +35,17 @@ describe('SkillsCarousel', () => {
     expect(element.textContent).toContain('WebSocket');
   });
 
+  it('shows the confirmed catalog-only technologies as text tiles', () => {
+    const element = fixture.nativeElement as HTMLElement;
+    const text = element.textContent ?? '';
+
+    expect(text).toContain('C#');
+    expect(text).toContain('Visual Studio Code');
+    expect(text).toContain('IntelliJ IDEA');
+    expect(text).toContain('Consultas SQL avanzadas');
+    expect(text).toContain('Cassandra');
+  });
+
   it('separates the two tiers under labelled category tracks', () => {
     const element = fixture.nativeElement as HTMLElement;
     const text = element.textContent ?? '';

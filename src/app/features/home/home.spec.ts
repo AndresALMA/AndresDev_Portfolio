@@ -56,8 +56,11 @@ describe('Home', () => {
     const element = fixture.nativeElement as HTMLElement;
     const text = element.textContent ?? '';
 
-    expect(element.querySelectorAll('[data-methodology]').length).toBe(5);
+    expect(element.querySelectorAll('[data-methodology]').length).toBe(8);
     expect(text).toContain('Scrum');
+    expect(text).toContain('BPMN');
+    expect(text).toContain('UML');
+    expect(text).toContain('Kanban');
     expect(text).toContain('Project management');
     expect(text).toContain('Feasibility and viability');
     expect(text).toContain('Cost estimation');

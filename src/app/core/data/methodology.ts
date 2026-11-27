@@ -11,6 +11,33 @@ export const methodologies: readonly Methodology[] = [
     ],
   },
   {
+    id: 'bpmn',
+    title: 'BPMN',
+    pending: [
+      '[PLACEHOLDER] UTN subject and year',
+      '[PLACEHOLDER] process model and deliverable',
+      '[PLACEHOLDER] evidence or link',
+    ],
+  },
+  {
+    id: 'uml',
+    title: 'UML',
+    pending: [
+      '[PLACEHOLDER] UTN subject and year',
+      '[PLACEHOLDER] diagram types and deliverable',
+      '[PLACEHOLDER] evidence or link',
+    ],
+  },
+  {
+    id: 'kanban',
+    title: 'Kanban',
+    pending: [
+      '[PLACEHOLDER] UTN subject and year',
+      '[PLACEHOLDER] board practices and deliverable',
+      '[PLACEHOLDER] evidence or link',
+    ],
+  },
+  {
     id: 'project-management',
     title: 'Project management',
     pending: [
